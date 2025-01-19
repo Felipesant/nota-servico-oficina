@@ -1,0 +1,33 @@
+<div class="modal show d-block" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Consulta de Placa</h5>
+          <button type="button" class="btn-close" (click)="closeModal()"></button>
+        </div>
+        <div class="modal-body">
+          <form (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+              <label for="placa" class="form-label">Placa</label>
+              <input
+                type="text"
+                class="form-control"
+                id="placa"
+                [(ngModel)]="placa"
+                name="placa"
+                (input)="formatToUppercase()"
+                maxlength="7"
+                required
+              />
+            </div>
+            <button type="submit" class="btn btn-primary">Consulta</button>
+          </form>
+          <div class="loading-spinner" *ngIf="isLoading"></div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="closeModal()">Fechar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  

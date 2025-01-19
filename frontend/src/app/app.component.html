@@ -1,0 +1,136 @@
+<app-placa-modal *ngIf="showModalPlaca" (placaEmmiter)="consultarPlaca($event)"
+  [isLoading]="showLoading"></app-placa-modal>
+
+<div *ngIf="dadosVeiculo" class="container">
+  <div class="col text-center mt-3">
+    <h2>Nota de Serviço</h2>
+  </div>
+  <p>Placa: {{ placa }}</p>
+  <p>Marca: {{ dadosVeiculo.Marca }}</p>
+  <p>Modelo: {{ dadosVeiculo.Modelo }}</p>
+  <p>Ano: {{ dadosVeiculo.Ano }}</p>
+  <!-- <p>Cor: {{ dadosVeiculo.Cor }}</p> -->
+  <!-- <p>Chassi: {{ dadosVeiculo.Chassi }}</p> -->
+  <!-- <p>Fipe: {{ dadosVeiculo.Valor }}</p>
+  <p>Local: {{ dadosVeiculo.Municipio }}</p>
+  <p>Potencia: {{ dadosVeiculo.Potencia }}</p> -->
+</div>
+
+<div *ngIf="!showModalPlaca" class="container mt-4">
+  <h3>Lista de Itens</h3>
+  <form (ngSubmit)="onSubmit()">
+    <div class="table-responsive">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Qtd.</th>
+            <th>Descrição</th>
+            <th>Valor</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of itens; let i = index">
+            <td>
+              <select [(ngModel)]="item.quantidade" name="quantidade{{i}}" class="form-control" required>
+                <option *ngFor="let num of numeros" [value]="num">{{ num }}</option>
+              </select>
+            </td>
+            <td><input type="text" [(ngModel)]="item.descricao" name="descricao{{i}}" class="form-control" required>
+            </td>
+            <td>
+              <input type="tel" [(ngModel)]="item.valor" name="valor{{i}}" class="form-control" mask="separator.2"
+                thousandSeparator="." decimalMarker="," prefix="R$ " required (ngModelChange)="updateTotal()">
+            </td>
+            <td>
+              <button type="button" class="btn btn-link" (click)="removeItem(i)">
+                <i class="bi bi-trash"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="col d-flex pb-3">
+        <strong>Total</strong>
+        <span class="ml-3">{{ total | currency:'BRL':'symbol' }}</span>
+      </div>
+    </div>
+    <button type="button" class="btn btn-primary" (click)="addItem()">Adicionar Item</button>
+  </form>
+  <button type="button" class="btn btn-secondary mt-3" (click)="generatePDF()">Gerar PDF</button>
+</div>
+
+<br>
+<br>
+
+<!-- HTML escondido para o PDF -->
+<div #pdfContent *ngIf="dadosVeiculo" class="p-2 hidden-pdf" style="background-color: #bDD6ee;">
+  <div class="col text-center">
+    <h1 style="font-style: italic;">S.R.A Auto Center</h1>
+  </div>
+  <div class="d-flex">
+    <p><strong>Cliente: </strong></p>
+    <span class="pl-2">Felipe</span>
+  </div>
+  <div class="d-flex">
+    <p><strong>Endereço: </strong></p>
+    <span class="pl-2">Felipe</span>
+  </div>
+  <div class="d-flex justify-content-between">
+    <div class="d-flex">
+      <p><strong>Marca: </strong></p>
+      <span class="pl-2">{{dadosVeiculo.Marca}}</span>
+    </div>
+    <div class="d-flex">
+      <p><strong>Modelo: </strong></p>
+      <span class="pl-2">{{dadosVeiculo.Modelo}}</span>
+    </div>
+    <div class="d-flex">
+      <p><strong>Ano: </strong></p>
+      <span class="pl-2">{{dadosVeiculo.Ano}}</span>
+    </div>
+  </div>
+  <div class="d-flex justify-content-between">
+    <div class="d-flex">
+      <p><strong>Placa: </strong></p>
+      <span class="pl-2">{{placa}}</span>
+    </div>
+    <div class="d-flex">
+      <p><strong>Data: </strong></p>
+      <span class="pl-2"> 10/10/2020 </span>
+    </div>
+  </div>
+  <div class="col">
+    <table class="table-hidden w-100" border="1" cellspacing="0" cellpadding="1">
+      <tr>
+        <th class="text-start fixed-width">Qtd</th>
+        <th class="text-center flex-fill">Descrição</th>
+        <th class="text-end fixed-width-value">Valor</th>
+      </tr>
+      <tr *ngFor="let item of itens; let i = index">
+        <td class="text-start">{{ item.quantidade }}</td>
+        <td class="text-center flex-fill">{{ item.descricao }}</td>
+        <td class="text-end"> {{ item.valor | currency:'BRL':'symbol' }}</td>
+      </tr>
+      <tr *ngIf="itens.length < 7">
+        <td class="text-start" style="height: 27px;"></td>
+        <td class="text-center flex-fill"></td>
+        <td class="text-end"> </td>
+      </tr>
+      <tr *ngIf="itens.length < 7">
+        <td class="text-start" style="height: 27px;"></td>
+        <td class="text-center flex-fill"></td>
+        <td class="text-end"> </td>
+      </tr>
+      <tr *ngIf="itens.length < 7">
+        <td class="text-start" style="height: 27px;"></td>
+        <td class="text-center flex-fill"></td>
+        <td class="text-end"> </td>
+      </tr>
+      <tr>
+        <td colspan="2" class="text-end font-weight-bold">Total</td>
+        <td class="text-end">{{ total | currency:'BRL':'symbol' }}</td>
+      </tr>
+    </table>
+  </div>
+</div>

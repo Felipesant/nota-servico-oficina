@@ -1,0 +1,22 @@
+.hidden-pdf {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+    min-width: 800px;position: absolute;
+}
+
+.table-hidden th,
+.table-hidden td {
+    border: 1px solid black;
+    /* Cor da borda */
+}
+
+.table-hidden th.fixed-width,
+.table td.fixed-width {
+    width: 50px;
+    /* Define a largura fixa da primeira coluna */
+}
+
+.table-hidden th.fixed-width-value, .table td.fixed-width-value {
+    width: 150px; /* Define a largura fixa da primeira coluna */
+   }
