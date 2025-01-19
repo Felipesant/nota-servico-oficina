@@ -1,5 +1,5 @@
 {
-    "version": 4,
+    "version": 2,
     "builds": [
         {
             "src": "src/**/*",
@@ -11,8 +11,8 @@
     ],
     "routes": [
         {
-            "source": "/(.*)",
-            "destination": "/index.html"
+            "src": "/(.*)",
+            "dest": "/index.html"
         }
     ]
 }
