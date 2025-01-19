@@ -9,6 +9,7 @@
             }
         }
     ],
+    "ignoreCommand": "rm -rf src/app/__mock__/*",
     "routes": [
         {
             "src": "/(.*)",
