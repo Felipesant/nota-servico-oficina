@@ -1,23 +1,13 @@
 {
     "version": 2,
-    "builds": [
+    "projects": [
         {
-            "src": "frontend/package.json",
-            "use": "@vercel/static-build"
+            "name": "frontend",
+            "rootDirectory": "frontend"
         },
         {
-            "src": "backend/package.json",
-            "use": "@vercel/node"
-        }
-    ],
-    "rewrites": [
-        {
-            "source": "/api/(.*)",
-            "destination": "/backend/$1"
-        },
-        {
-            "source": "/(.*)",
-            "destination": "/frontend/index.html"
+            "name": "backend",
+            "rootDirectory": "backend"
         }
     ]
 }

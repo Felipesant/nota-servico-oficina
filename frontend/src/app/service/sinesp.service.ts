@@ -12,6 +12,6 @@ export class ConsultaPlacaService {
   constructor(private http: HttpClient) {}
 
   getPlaca(placa: string): Observable<any> {
-    return this.http.get(`/local-api/consulta/${placa}`);
+    return this.http.get(`/local-api/api/consulta/${placa}`);
   }
 }
